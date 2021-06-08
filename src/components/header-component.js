@@ -13,25 +13,25 @@ class Header extends Component {
         </div>
         <div className="nav-bar">
           <span>
-            <a href="www">Menu 1</a>
+            <a href="/menu1">Menu 1</a>
           </span>
           <span>
-            <a href="aaaa">Menu 2</a>
+            <a href="/menu2">Menu 2</a>
           </span>
           <span>
-            <a href="aaaa">Menu 3</a>
+            <a href="/menu3">Menu 3</a>
           </span>
         </div>
         <div className="social-header">
-          <span>
+          <a href="www.facebook.com">
             <img src={facebook} alt="logo" />
-          </span>
-          <span>
+          </a>
+          <a href="www.google.com">
             <img src={google} alt="logo" />
-          </span>
-          <span>
+          </a>
+          <a href="www.youtube.com">
             <img src={youtube} alt="logo" />
-          </span>
+          </a>
         </div>
       </div>
     );
