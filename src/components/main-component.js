@@ -26,9 +26,9 @@ class Main extends Component {
         </div>
         {(page === 'home') &&
         <div className="circles">
-          <Cicrle view={{w: 50, height: 50}} number={30}/>
-          <Cicrle view={{w: 50, height: 50}} number={50}/>
-          <Cicrle view={{w: 50, height: 50}} number={40}/>
+          <Cicrle view={{width: 50, height: 50}} number={30}/>
+          <Cicrle view={{width: 50, height: 50}} number={50}/>
+          <Cicrle view={{width: 50, height: 50}} number={40}/>
         </div>}
         {(page === 'about') && <div>About page</div>}
       </main>
