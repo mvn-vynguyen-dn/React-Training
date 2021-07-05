@@ -1,98 +1,80 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 // import Cicrle from './circle-component';
 import UserItem from './user-item.component';
-class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 'home',
-      form: {
-        email: '',
-        password: '',
-        country: '',
-        infor: '',
-        gender: '0'
-      },
+export function Main() {
+  const [state, setState] = useState(
+    {
+      email: '',
+      password: '',
+      country: '',
+      infor: '',
+      gender: '0',
       userList: [],
-      id: 1
-    };
-  }
+      id: 0
+    },
+  )
 
-  handleChangePage(page) {
-    this.setState({
-      page
-    });
-  }
-
-  handleInputChanges = (e) => {
+  function handleInputChanges(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    this.setState(prev => {
+    setState((state) => {
       return {
-        form: {
-          ...prev.form,
-          [name]: value
-        }
+        ...state,
+        [name]: value
       }
     })
   }
 
-  handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    this.setState(prev => {
+    setState((state) => {
       return {
-        id: prev.id += 1,
+        id: state.id += 1,
         userList: [
-          ...prev.userList,
-          {...this.state.form, id: this.state.id}
+          ...state.userList,
+          {...state, id: state.id}
         ]
       }
     })
   }
 
-  deleteItem = (id) => {
-    this.setState(prev => {
-      return {
-        ...prev,
-        userList: prev.userList.filter(item => item.id !== id)
-      }
-    })
+  function deleteItem(id) {
+    setState((state) => ({
+      userList: state.userList.filter((item) => item.id !== id)
+    }))
   }
 
-  render() {
-    const { userList }  = this.state;
-
-    const listUsers = userList.map((item) => {
-      return <UserItem infor={item} key={item.id} parentCallback={this.deleteItem}/>
-    })
+  const listUsers = state.userList.map((item) => {
+    return <UserItem infor={item} key={item.id} parentCallback={deleteItem}/>
+  })
 
     return (
       <main className="page-main">
         <div className="container">
           <div className="form-wrap">
             <h2>Register</h2>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <label>Email</label>
-              <input type="text" name="email" onChange={this.handleInputChanges}/>
+              <input type="text" name="email" onChange={handleInputChanges}/>
               <label>Password</label>
-              <input type="password" name="password" onChange={this.handleInputChanges}/>
+              <input type="password" name="password" onChange={handleInputChanges}/>
               <label>Your Country</label>
-              <select name="country" value={this.state.form.country} onChange={this.handleInputChanges}>
+              <select name="country" value={state.country} onChange={handleInputChanges}>
                 <option value="">Please Choose</option>
                 <option value="vn">Viet Nam</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
               </select>
               <label>Gender</label>
-              <input type="radio" id="male" name="gender" value="0" onChange={this.handleInputChanges} defaultChecked/>
+              <input type="radio" id="male" name="gender" value="0" onChange={handleInputChanges} defaultChecked/>
               <label className="custom-label" htmlFor="male">Male</label>
-              <input type="radio" id="female" name="gender" value="1" onChange={this.handleInputChanges}/>
+              <input type="radio" id="female" name="gender" value="1" onChange={handleInputChanges}/>
               <label className="custom-label" htmlFor="female">Female</label>
               <div>
                 <label>Other information</label>
-                <textarea name="infor" onChange={this.handleInputChanges}></textarea>
+                <textarea name="infor" onChange={handleInputChanges}></textarea>
               </div>
               <button>Submit</button>
             </form>
@@ -127,6 +109,5 @@ class Main extends Component {
         {(page === 'about') && <div>About page</div>} */}
       </main>
     );
-  }
 }
 export default Main;
